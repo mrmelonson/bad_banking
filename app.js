@@ -109,18 +109,22 @@ app.post('/transactiongo', function(request, response) {
 		let username = request.session.username;
 		
 		if(amount <= request.session.balance) {
-			connection.query('SELECT * FROM accounts WHERE username = ? or username = ?', [username, reciever], function(error, results, fields) {
-				if(results.length > 1) {
+			connection.query('SELECT * FROM accounts WHERE username = ?', [reciever], function(error, results, fields) {
+				if(results.length > 0) {
 
-					let user_bal = results[0].balance - amount;
-					let reciever_old_bal = parseInt(results[1].balance);
+					let reciever_old_bal = parseInt(results[0].balance);
 					let reciever_bal = parseInt(amount) + reciever_old_bal;
 
 					//console.log(reciever_bal);
+					connection.query('UPDATE accounts SET balance = ? WHERE username = ?', [reciever_bal, reciever], function(err, res) {
 
-					connection.query('UPDATE accounts SET balance = ? WHERE username = ?', [user_bal, username], function(err, res) {
+						connection.query('SELECT * FROM accounts WHERE username = ?', [username], function(error, results, fields) { 
 
-						connection.query('UPDATE accounts SET balance = ? WHERE username = ?', [parseInt(reciever_bal), reciever], function(err, res) { 
+							let user_bal = results[0].balance - amount;
+
+							connection.query('UPDATE accounts SET balance = ? WHERE username = ?', [parseInt(user_bal), username], function(err, res) { 
+
+							});
 						});
 					});
 
@@ -161,6 +165,6 @@ app.post('/test', function(request, response) {
 	response.end();
 });
 
-app.listen(3000);
+app.listen(8008);
 
-console.log("listening on port 3000");
+console.log("listening on port 8008");
